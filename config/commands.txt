@@ -1,0 +1,30 @@
+find . -name "*.c" -print | xargs grep "etcd"
+
+sudo find / -type f -name etc
+
+sudo systemctl restart systemd-networkd
+sudo systemctl restart fleet
+
+sudo vi /etc/systemd/network/static.network
+
+
+docker run -it --rm phusion/baseimage /bin/bash
+
+
+git fetch --all
+git reset --hard origin/master
+
+ls /var/lib/coreos-vagrant/
+cat /var/lib/coreos-vagrant/vagrantfile-user-data
+
+ls -las /var/run/systemd/system
+cat /var/run/systemd/system/etcd.service.d/*.conf
+cat /var/run/systemd/system/fleet.service.d/*.conf
+ls /etc/systemd/system
+
+cat  /etc/environment
+coreos-cloudinit --from-file /var/lib/coreos-vagrant/vagrantfile-user-data
+vagrant plugin install vagrant-reload
+sudo rm /var/db/vmware/*
+
+

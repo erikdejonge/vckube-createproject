@@ -1,0 +1,19 @@
+---
+
+- name: swap keys
+  hosts: all
+  gather_facts: False
+  sudo: true
+
+  tasks:
+    - name: Remove /home/core/.ssh/authorized_keys
+      file: path=/home/core/.ssh/authorized_keys state=absent
+
+    - name: Remove /home/core/.ssh/authorized_keys.d/coreos-cloudinit
+      file: path=/home/core/.ssh/authorized_keys.d/coreos-cloudinit state=absent
+
+    - name: Remove /home/core/.ssh/authorized_keys.d
+      file: path=/home/core/.ssh/authorized_keys.d state=absent
+
+    - name: new key
+      authorized_key: user=core key="{{ lookup('file', '../keys/secure/vagrantsecure.pub') }}"

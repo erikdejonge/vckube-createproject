@@ -1,0 +1,44 @@
+---
+#
+#- name: do simple test
+#  hosts: all
+#  sudo: yes
+#  gather_facts: False
+#
+
+#  tasks:
+#    - name: print a date
+#      shell: date
+#      register: dateout
+#
+#    - debug: msg="System {{ inventory_hostname }} has date {{ dateout.stdout }}"
+#
+
+
+- name: do a docker test
+  hosts: all
+  sudo: yes
+  gather_facts: False
+
+  vars:
+    containers:
+      - busybox
+      - dr.a8.nl/cryptobox/scratch
+      - dr.a8.nl/cryptobox/tools
+
+      
+  roles:
+    - loadingdocker
+
+
+- name: upload simple test service file (myapp.service) to masters
+  hosts: masters
+  sudo: true
+  gather_facts: False
+
+  tasks:
+    - name: Upload sample taskfile
+      copy: src=files/myapp.service dest=. mode=0744 owner=core
+
+    - name: Remove sample taskfile
+      file: path=$HOME state=absent

@@ -1,0 +1,8 @@
+- stat: path={{variablesfile}}
+  register: variablesfilestat
+- set_fact: variablesfilestatnotexists="{{(variablesfilestat.stat.exists == false)}}"
+
+
+- name: Set ansible fact variables if variablesfilestatnotexists
+  template: src=dump_variables.j2 dest=/tmp/ansible_variables.txt
+  when: variablesfilestatnotexists

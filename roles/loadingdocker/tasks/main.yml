@@ -1,0 +1,40 @@
+- name: try docker containerlist [containers]
+  shell: docker images | grep {{item}}
+  with_items: containers
+  register: haveallcontainers
+  ignore_errors: true
+
+
+#- name: Check if registry login is needed
+#  stat: path=/home/core/.registry_dr_a8_nl
+#  register: need_registry_login
+#  ignore_errors: True
+
+
+- name: login to registry https://dr.a8.nl
+  shell: docker login -e "erik@a8.nl" -u "rabshakeh" -p "{{dockerpassword}}" https://dr.a8.nl
+  register: io
+  when: haveallcontainers|failed
+
+#
+#- name: make .registry_dr_a8_nl file
+#  shell: date > /home/core/.registry_dr_a8_nl
+#  when: haveallcontainers | failed
+
+
+- name: download pull containerlist [containers]
+  command: docker pull {{ item }}
+  with_items: containers
+  register: pull_success
+  when: haveallcontainers|failed
+
+#
+#- name: Remove .registry_dr_a8_nl file
+#  file: path=/home/core/.registry_dr_a8_nl state=absent
+#  when: pull_success | failed
+
+
+- name: print images
+  command: docker images
+  register: io
+  when: haveallcontainers|failed

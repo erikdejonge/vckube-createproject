@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>org.cryptobox.kubecoreos</string>
+ <key>StandardOutPath</key>
+ <string>[project_directory]/logs/vagrant-boot.log</string>
+ <key>StandardErrorPath</key>
+ <string>[project_directory]/logs/vagrant-boot.err</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/vagrant</string>
+    <string>up</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>[project_directory]</string>
+ <key>RunAtLoad</key>
+ <true/>
+ <key>KeepAlive</key>
+ <false/>
+
+</dict>
+</plist>

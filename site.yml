@@ -1,0 +1,4 @@
+- include: playbooks/ansiblebootstrap.yml
+- include: playbooks/testansible.yml
+- include: playbooks/keyswap.yml
+- include: playbooks/containersloading.yml
