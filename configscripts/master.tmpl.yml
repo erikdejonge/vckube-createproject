@@ -190,7 +190,7 @@ coreos:
         ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-apiserver
         ExecStartPre=/usr/bin/wget -N -P /opt/bin https://storage.googleapis.com/kubernetes-release/release/v0.15.0/bin/linux/amd64/kubectl
         ExecStartPre=/usr/bin/chmod +x /opt/bin/kubectl
-        ExecStartPre=/opt/bin/wupiao <master-private-ip>:2379/v2/machines        
+        ExecStartPre=/opt/bin/wupiao <master-private-ip>:2379/v2/machines
         ExecStart=/opt/bin/kube-apiserver \
           --allow_privileged=true \
           --insecure_bind_address=0.0.0.0 \
@@ -219,12 +219,12 @@ coreos:
         ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-controller-manager
         ExecStartPre=/opt/bin/wupiao <master-private-ip>:8080
         ExecStart=/opt/bin/kube-controller-manager \
-        --master=<master-private-ip>:8080 \
-        --cloud_provider=<cloud-provider> \
-        --pod_eviction_timeout=30s \
-        --node_milli_cpu=<node-cpus>000 \
-        --node_memory=<node-memory>Mi \
-        --logtostderr=true 
+          --master=<master-private-ip>:8080 \
+          --cloud_provider=<cloud-provider> \
+          --pod_eviction_timeout=30s \
+          --node_milli_cpu=<node-cpus>000 \
+          --node_memory=<node-memory>Mi \
+          --logtostderr=true
         Restart=always
         RestartSec=10
 

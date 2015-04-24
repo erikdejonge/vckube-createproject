@@ -8,7 +8,7 @@ Vagrant.require_version '>= 1.6.0'
 $cloud_config_path = ''
 # Defaults for config options defined in CONFIG
 $num_instances = x
-$update_channel = 'beta'
+$update_channel = 'alpha'
 $enable_serial_logging = false
 $share_home = false
 $vm_gui = x

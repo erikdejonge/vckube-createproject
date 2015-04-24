@@ -118,22 +118,18 @@ coreos:
 
     - name: fleet.service
       command: start
-
     - name: docker.service
       command: start
       drop-ins:
-        - name: 51-docker-mirror.conf
-          content: |
-            [Unit]
-            # making sure that flanneld finished startup, otherwise containers
-            # won't land in flannel's network...
-            Requires=flanneld.service
-            After=flanneld.service
-            [Service]
-            Environment=DOCKER_OPTS='--registry-mirror=http://<master-private-ip>:5000'
-            ExecStartPre=/opt/bin/wupiao <master-private-ip>:5000
-            
-    - name: setup-network-environment.service
+      - name: 51-docker-mirror.conf
+        content: |
+          [Unit]
+          Requires=flanneld.service
+          After=flanneld.service
+          [Service]
+          Environment=DOCKER_OPTS='--registry-mirror=http://<master-private-ip>:5000'
+          ExecStartPre=/opt/bin/wupiao <master-private-ip>:5000
+
     - name: kube-proxy.service
       command: start
       content: |
@@ -164,16 +160,16 @@ coreos:
         ExecStartPre=/usr/bin/chmod +x /opt/bin/kubelet
         ExecStartPre=/opt/bin/wupiao <master-private-ip>:8080
         ExecStart=/opt/bin/kubelet \
-        --address=0.0.0.0 \
-        --port=10250 \
-        --hostname_override=<public-ip> \
-        --api_servers=<master-private-ip>:8080 \
-        --allow_privileged=true \
-        --cluster_dns=10.100.0.10 \
-        --cluster_domain="k8s.local" \
-        --logtostderr=true \
-        --cadvisor_port=4194 \       
-        --healthz_bind_address=0.0.0.0 \
-        --healthz_port=10248
+          --address=0.0.0.0 \
+          --port=10250 \
+          --hostname_override=<public-ip> \
+          --api_servers=<master-private-ip>:8080 \
+          --allow_privileged=true \
+          --cluster_dns=10.100.0.10 \
+          --cluster_domain="k8s.local" \
+          --logtostderr=true \
+          --cadvisor_port=4194 \
+          --healthz_bind_address=0.0.0.0 \
+          --healthz_port=10248
         Restart=always
         RestartSec=10
