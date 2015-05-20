@@ -70,7 +70,7 @@ class CallbackModule(object):
         """
 
         # print "\033[32m", args, "\033[0m"
-        # print "\033[95m", kwargs, "\033[0m"
+        # print "\033[35m", kwargs, "\033[0m"
         pass
 
     # noinspection PyMethodMayBeStatic,PyUnusedLocal,PyUnusedLocal
